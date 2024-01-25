@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../../css/global.css" />
+  <link rel="stylesheet" href="./home.module.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>Formulário - ALI - Agentes Locais de Inovação</title>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <img src="../../assets/ali.png" width="200" alt="ALI - Agentes Locais de Inovação" />
+    </nav>
+  </header>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="#">Cadastro</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Anexos</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Status</a>
+    </li>
+  </ul>
+  <!-- Main -->
+  <main class="container border border-light shadow-sm p-3 mb-5 bg-body rounded">
+    <form class="row g-3" id="projectForm">
+      <div class="col-md-8">
+        <label for="inputName" class="form-label">Nome Completo</label>
+        <input type="text" class="form-control" id="inputName">
+      </div>
+      <div class="col-md-4">
+        <label for="inputRG" class="form-label">RG</label>
+        <input type="text" class="form-control" id="inputRG">
+      </div>
+      <div class="col-md-8">
+        <label for="inputEmail" class="form-label">Email</label>
+        <input type="email" class="form-control" id="inputEmail">
+      </div>
+      <div class="col-4">
+        <label for="inputPhone" class="form-label">Telefone</label>
+        <input type="text" class="form-control" id="inputPhone" placeholder="(xx) x xxxx-xxxx">
+      </div>
+      <div class="col-md-7">
+        <label for="inputTitle" class="form-label">Título do Artigo ou Estudo de Caso:</label>
+        <input type="text" class="form-control" id="inputTitle">
+      </div>
+      <div class="col-md-5">
+        <label for="inputState" class="form-label">Estado</label>
+        <select id="inputState" class="form-select">
+          <option selected>Selecione a opção</option>
+          <option>AC</option>
+          <option>AL</option>
+          <option>AP</option>
+          <option>AM</option>
+          <option>BA</option>
+          <option>CE</option>
+          <option>ES</option>
+          <option>GO</option>
+          <option>MA</option>
+          <option>MT</option>
+          <option>MS</option>
+          <option>MG</option>
+          <option>PA</option>
+          <option>PB</option>
+          <option>PR</option>
+          <option>PE</option>
+          <option>PI</option>
+          <option>RJ</option>
+          <option>RN</option>
+          <option>RS</option>
+          <option>RO</option>
+          <option>RR</option>
+          <option>SC</option>
+          <option>SP</option>
+          <option>SE</option>
+          <option>TO</option>
+        </select>
+      </div>
+      <div class="col-6">
+        <label for="inputModality" class="form-label">Modalidade</label>
+        <select id="inputModality" class="form-select">
+          <option selected>Selecione a opção</option>
+          <option>ALI PRODUTIVIDADE</option>
+          <option>ALI TRANSFORMAÇÃO DIGITAL</option>
+          <option>ALI PRODUTIVIDADE</option>
+          <option>ALI RURAL</option>
+          <option>ALI EDUCAÇÃO EMPREENDEDORA</option>
+          <option>NÃO INFORMADO</option>
+          <option>ALI INDICAÇÃO GEOGRÁFICA</option>
+        </select>
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Atualizar Dados</button>
+      </div>
+    </form>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+    import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyBPm7RjfVqxzw49IcLFDQK_LvP_UxuzfbE",
+      authDomain: "sebrae-ali.firebaseapp.com",
+      projectId: "sebrae-ali",
+      databaseURL: "https://sebrae-ali-default-rtdb.firebaseio.com",
+      storageBucket: "sebrae-ali.appspot.com",
+      messagingSenderId: "965996654505",
+      appId: "1:965996654505:web:085b72f402f77432ec9eb8"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    document.getElementById("projectForm").addEventListener('submit', submitForm);
+
+    function submitForm(e) {
+      e.preventDefault();
+
+      var fullName = getElementVal('inputName');
+      var rg = getElementVal('inputRG');
+      var email = getElementVal('inputEmail');
+      var phone = getElementVal('inputPhone');
+      var title = getElementVal('inputTitle');
+      var state = getElementVal('inputState');
+      var modality = getElementVal('inputModality');
+
+
+      saveProjects(fullName, rg, email, phone, title, state, modality);
+    }
+
+    const saveProjects = (fullName, rg, email, phone, title, state, modality) => {
+      set(ref(db, 'users/' + getElementVal('inputRG')), {
+        fullName: fullName, 
+        rg: rg,
+        email: email,
+        phone: phone,
+        title: title,
+        state: state,
+        modality: modality
+      });
+      // window.location.href = "pages/home/home.html";
+    }
+
+    const getElementVal = (id) => {
+      return document.getElementById(id).value;
+    };
+  </script>
+</body>
+
+</html>

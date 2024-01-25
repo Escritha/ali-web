@@ -1,0 +1,36 @@
+.clear {
+  background: transparent;
+  color: rgb(2, 13, 26);
+  border: none;
+  font-weight: bold;
+}
+
+.solid {
+  background: white;
+  color: rgb(2, 13, 26);
+  font-weight: bold;
+}
+
+.outline {
+  background: transparent;
+  color: rgb(97, 156, 224);
+  border: 1px solid white;
+}
+
+.error {
+  color: white;
+  background: red;
+  display: none;
+}
+
+button:active {
+  opacity: 0.8;
+}
+
+button[disabled] {
+  opacity: 0.3;
+}
+
+.mt-6 {
+  margin-top: 15rem;
+}

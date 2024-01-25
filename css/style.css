@@ -1,0 +1,39 @@
+body {
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+label {
+  color: rgb(97, 156, 224);
+  margin-left: 10px;
+}
+
+input,
+button {
+  padding: 10px;
+  cursor: pointer;
+  width: -webkit-fill-available;
+  border-radius: 10px;
+  color: rgb(10, 4, 42);
+  border-color: rgb(97, 156, 224);
+}
+
+button {
+  margin-bottom: 10px;
+}
+
+form {
+  width: 300px;
+}
+
+.form-field {
+  margin-bottom: 10px;
+}
+
+#register {
+  display: none;
+}

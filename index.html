@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./css/global.css" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <title>ALI - Agentes Locais de Inovação</title>
+</head>
+
+<body>
+  <img src="./assets/ali.png" alt="ALI - Agentes Locais de Inovação" />
+  <div>
+    <form>
+      <div class="form-field">
+        <div><label>E-mail: </label></div>
+        <input id="email" type="email" name="email" onchange="onChangeEmail()" placeholder="seu@email.com" />
+        <div id="email-required-error" class="error">E-mail obrigatório!</div>
+        <div id="email-invalid-error" class="error">E-mail inválido!</div>
+      </div>
+      <div class="form-field">
+        <div><label>Senha: </label></div>
+        <input id="password" type="password" name="password" onchange="onChangePassword()" placeholder="Senha" />
+        <div id="password-required-error" class="error">
+          Senha obrigatória!
+        </div>
+      </div>
+      <div>
+        <button id="recover-password-button" type="button" class="clear" disabled="true">
+          Recuperar Senha
+        </button>
+      </div>
+      <div>
+        <button id="login-button" type="button" class="solid" disabled="true" onclick="login()">
+          Entrar
+        </button>
+      </div>
+      <div>
+        <button id="register" type="button" class="outline">Registrar</button>
+      </div>
+    </form>
+  </div>
+  <script src="./js/script.js"></script>
+  <script src="./js/validations.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBPm7RjfVqxzw49IcLFDQK_LvP_UxuzfbE",
+      authDomain: "sebrae-ali.firebaseapp.com",
+      projectId: "sebrae-ali",
+      storageBucket: "sebrae-ali.appspot.com",
+      messagingSenderId: "965996654505",
+      appId: "1:965996654505:web:085b72f402f77432ec9eb8",
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+</body>
+
+</html>
